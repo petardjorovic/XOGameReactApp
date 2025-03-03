@@ -1,10 +1,9 @@
 import { useEffect, useState } from "preact/hooks";
-import "./app.css";
 import BoxComponent from "./components/BoxComponent";
 
 export function App() {
   // ko igra prvi
-  const [firstGo, setFirstGo] = useState("circle");
+  const [firstGo, setFirstGo] = useState("cross");
   // pobednik
   const [winner, setWinner] = useState(null);
   const [cells, setCells] = useState(["", "", "", "", "", "", "", "", ""]);
@@ -27,10 +26,10 @@ export function App() {
 
     let checkAllCell = cells.every((cell) => cell !== "");
 
-    winnerCombinations.forEach((combination) => {
+    for (let i = 0; i < winnerCombinations.length; i++) {
+      let combination = winnerCombinations[i];
       let crossWin = combination.every((comb) => cells[comb] === "cross");
       let circleWin = combination.every((comb) => cells[comb] === "circle");
-
       if (crossWin) {
         setWinner("The winner is cross!");
         return;
@@ -38,9 +37,9 @@ export function App() {
         setWinner("The winner is circle!");
         return;
       } else if (checkAllCell) {
-        setWinner("There isn't a winner!");
+        setWinner("It's a draw!");
       }
-    });
+    }
   }
 
   function resetGame() {
